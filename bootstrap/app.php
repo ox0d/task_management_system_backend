@@ -11,9 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->validateCsrfTokens(except: [
-        //     'http://localhost:5173/*',
-        // ]);
+        $middleware->validateCsrfTokens(except: [
+            'tasks/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
