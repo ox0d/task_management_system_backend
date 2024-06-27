@@ -70,7 +70,34 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'status' => 'required|string|in:pending,in-progress,completed',
+            'due_date' => 'required|date',
+        ]);
+
+        $task = Task::findorfail($id);
+
+        if (isset($validatedData['title'])) {
+            $task->title = strip_tags(trim($validatedData['title']));
+        }
+
+        if (isset($validatedData['description'])) {
+            $task->description = strip_tags(trim($validatedData['description']));
+        }
+
+        if (isset($validatedData['status'])) {
+            $task->status = strip_tags(trim($validatedData['status']));
+        }
+
+        if (isset($validatedData['due_date'])) {
+            $task->due_date = strip_tags(trim($validatedData['due_date']));
+        }
+
+        $task->save();
+
+        return response()->json($task, 200);
     }
 
     /**
