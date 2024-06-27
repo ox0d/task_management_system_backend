@@ -30,7 +30,21 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'status' => 'required|string|in:pending,in-progress,completed',
+            'due_date' => 'required|date',
+        ]);
+    
+        $task = Task::create([
+            'title' => strip_tags(trim($validatedData['title'])),
+            'description' => strip_tags(trim($validatedData['description'])),
+            'status' => strip_tags(trim($validatedData['status'])),
+            'due_date' => strip_tags(trim($validatedData['due_date'])),
+        ]);
+
+        return response()->json($task, 201);
     }
 
     /**

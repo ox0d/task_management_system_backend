@@ -11,4 +11,4 @@ Route::get('/', function () {
 });
 
 // Task routes
-Route::resource('tasks', TaskController::class);
+Route::resource('tasks', TaskController::class)->except(['create', 'edit']);
