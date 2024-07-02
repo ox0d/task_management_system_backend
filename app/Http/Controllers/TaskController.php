@@ -14,7 +14,7 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
 
-        return $tasks;
+        return response()->json($tasks, 200);
     }
 
     /**
@@ -54,7 +54,7 @@ class TaskController extends Controller
     {
         $task = Task::findorfail($id);
 
-        return $task;
+        return response()->json($task, 200);
     }
 
     /**
